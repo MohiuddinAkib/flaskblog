@@ -1,11 +1,11 @@
 from flask import Flask, render_template, url_for, request, flash, redirect
 from forms import RegistrationForm, LoginForm
-# from flask_wtf.csrf import CSRFProtect
+from flask_wtf.csrf import CSRFProtect
 
 
 app = Flask(__name__)
 # Csrf token
-# csrf = CSRFProtect(app)
+csrf = CSRFProtect(app)
 
 # Secret key
 app.config['SECRET_KEY'] = '7cb40e16074e4222e8ee8a99e9364353'
