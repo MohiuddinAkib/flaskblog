@@ -46,9 +46,16 @@ def about():
 
 
 # Login route
-@app.route('/login', methods=['GET'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
+    form = LoginForm(request.form)
+    if request.method == 'POST' and form.validate():
+        if form.email.data == 'newaz@gmail.com' and form.password.data == '123456':
+            flash(f"You are now logged in as {form.email.data}", 'success')
+            return redirect(url_for('home'))
+        else:
+            flash(f'Login unseccessful. Please check username and password', 'danger')
+            return redirect(url_for('login'))
     return render_template('login.html', form=form, title="Login")
 
 # 404 page
