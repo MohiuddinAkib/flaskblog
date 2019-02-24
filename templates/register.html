@@ -1,33 +1,41 @@
 {% extends 'layouts/main.html' %}
 
-    {% block content %}
+{% block content %}
+    {% from "_formhelpers.html" import render_field %}
+
     <div class="content-section">
         <form action="" method="POST">
-            {{ form.csrf_token }}
-
+            
             <fieldset class="form-group">
                 <legend class='border-bottom mb-4'>
                     Join Today
                 </legend>
-                <div class="form-group">
-                    {{ form.username.label(class="form-control-label") }}
-                    {{ form.username(class="form-control form-control-lg") }}
-                </div>
-                <div class="form-group">
-                    {{ form.email.label(class='form-control-label') }}
-                    {{ form.email(class="form-control form-control-lg") }}
-                </div>
-                <div class="form-group">
-                    {{ form.password.label(class='form-control-label') }}
-                    {{ form.password(class='form-control form-control-lg') }}
-                </div>
-                <div class="form-group">
-                    {{ form.confirm_password.label(class='form-control-label') }}
-                    {{ form.confirm_password(class='form-control form-control-lg') }}
-                </div>
-                <div class="form-group">
-                    {{  form.submit(class="btn btn-outline-info") }}
-                </div>
+                {{ form.csrf_token }}
+                {% if form.username.errors %}
+                {{ render_field(form.username, class="form-control form-control-lg is-invalid") }}
+                {% else %}
+                {{ render_field(form.username, class="form-control form-control-lg") }}
+                {% endif %}
+
+                {% if form.email.errors %}
+                {{ render_field(form.email, class="form-control form-control-lg is-invalid") }}
+                {% else %}
+                {{ render_field(form.email, class="form-control form-control-lg") }}
+                {% endif %}
+
+                {% if form.password.errors %}
+                {{ render_field(form.password, class="form-control form-control-lg is-invalid") }}
+                {% else %}
+                {{ render_field(form.password, class="form-control form-control-lg") }}
+                {% endif %}
+
+                {% if form.confirm_password.errors %}
+                {{ render_field(form.confirm_password, class="form-control form-control-lg is-invalid") }}
+                {% else %}
+                {{ render_field(form.confirm_password, class="form-control form-control-lg") }}
+                {% endif %}
+
+                {{ form.submit(class="btn btn-outline-info") }}
             </fieldset>
         </form>
     </div>
